@@ -1,0 +1,40 @@
+# dependencies
+node_modules/
+**/node_modules/
+
+# Next.js and build output
+.next/
+**/.next/
+out/
+dist/
+build/
+.turbo/
+**/.turbo/
+
+# caches and temporary files
+cache/
+**/cache/
+.cache/
+**/.cache/
+
+# logs
+*.log
+logs/
+**/logs/
+
+# env files
+.env
+.env.*
+!.env.example
+
+# editor files
+.vscode/
+.idea/
+.history/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db

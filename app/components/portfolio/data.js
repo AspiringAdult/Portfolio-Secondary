@@ -276,6 +276,7 @@ export const SECTORS = [
   { id: 'web', label: 'WEB OF SYSTEMS', code: '02' },
   { id: 'cyber', label: 'CYBER DEFENSE', code: '03' },
   { id: 'data', label: 'DATA LAB', code: '04' },
-  { id: 'archive', label: 'KNOWLEDGE ARCHIVE', code: '05' },
-  { id: 'contact', label: 'TRANSMISSION', code: '06' },
+  { id: 'experience', label: 'EXPERIENCE', code: '05' },
+  { id: 'archive', label: 'KNOWLEDGE ARCHIVE', code: '06' },
+  { id: 'contact', label: 'TRANSMISSION', code: '07' },
 ]

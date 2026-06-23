@@ -30,12 +30,12 @@ export function TopHUD({ activeSector, sound, toggleSound }) {
 
   return (
     <div className="fixed top-0 left-0 right-0 z-40 pointer-events-none">
-      <div className="flex items-start justify-between px-4 md:px-8 pt-4">
-        <div className="glass hud-corner pointer-events-auto rounded-md px-4 py-2 font-mono text-xs flex items-center gap-3">
+      <div className="flex items-start justify-between px-2 min-[380px]:px-4 md:px-8 pt-4">
+        <div className="glass hud-corner pointer-events-auto rounded-md px-2 min-[380px]:px-4 py-2 font-mono text-xs flex items-center gap-3">
           <span className="inline-block h-2 w-2 rounded-full bg-cyan-400 shadow-[0_0_10px_#22d3ee]" />
           <span className="text-cyan-200">KINGSLAYER // ONLINE</span>
           <span className="text-white/40">/</span>
-          <span className="text-white/60">{time}</span>
+          <span className="hidden min-[380px]:inline text-white/60">{time}</span>
         </div>
 
         <div className="hidden md:block glass hud-corner pointer-events-auto rounded-md px-4 py-2 font-mono text-xs">
@@ -222,9 +222,18 @@ export function SectionHeading({ code, title, accent = 'cyan', sub }) {
   )
 }
 
-export function ContactDeck({ resumeHref }) {
+export function ProtocolCard({ title, detail }) {
+  return (
+    <div className="rounded border border-white/10 bg-white/[0.03] p-3">
+      <div className="font-mono text-[10px] tracking-widest text-white/35">{title}</div>
+      <div className="mt-2 text-xs leading-relaxed text-white/70">{detail}</div>
+    </div>
+  )
+}
+
+export function ContactDeck({ resumeHref, onCopyEmail }) {
   const items = [
-    { icon: Mail, label: HERO.contact.email, href: `mailto:${HERO.contact.email}` },
+    { icon: Mail, label: HERO.contact.email, href: `mailto:${HERO.contact.email}`, copy: true },
     { icon: Github, label: 'github.com/AspiringAdult', href: HERO.contact.github },
     { icon: Linkedin, label: 'linkedin.com/in/diptangkush-das-kingslayer', href: HERO.contact.linkedin },
     { icon: Phone, label: HERO.contact.phone, href: `tel:${HERO.contact.phone}` },
@@ -236,15 +245,27 @@ export function ContactDeck({ resumeHref }) {
 
   return (
     <div className="grid sm:grid-cols-2 gap-3 max-w-xl">
-      {items.map(({ icon: Icon, label, href }) => {
+      {items.map(({ icon: Icon, label, href, copy }) => {
         const shouldOpenNewTab = href.startsWith('http') || href.endsWith('.pdf')
+        const classes = "group glass hud-corner rounded-md px-4 py-3 flex items-center gap-3 hover:border-cyan-400/60 transition"
+
+        if (copy && onCopyEmail) {
+          return (
+            <button key={label} type="button" onClick={onCopyEmail} className={`${classes} text-left`}>
+              <div className="h-9 w-9 rounded bg-cyan-500/10 border border-cyan-400/30 flex items-center justify-center">
+                <Icon className="h-4 w-4 text-cyan-300" />
+              </div>
+              <span className="font-mono text-xs text-white/80 truncate group-hover:text-cyan-200">{label}</span>
+            </button>
+          )
+        }
 
         return (
           <a
             key={label}
             href={href}
             {...(shouldOpenNewTab ? { target: '_blank', rel: 'noreferrer' } : {})}
-            className="group glass hud-corner rounded-md px-4 py-3 flex items-center gap-3 hover:border-cyan-400/60 transition"
+            className={classes}
           >
             <div className="h-9 w-9 rounded bg-cyan-500/10 border border-cyan-400/30 flex items-center justify-center">
               <Icon className="h-4 w-4 text-cyan-300" />
